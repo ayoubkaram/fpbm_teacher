@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { UsersService } from 'src/app/_auth/users.service';
 
 @Component({
   selector: 'app-pages-login',
@@ -7,13 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagesLoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
   }
 
-  login(loginForm){
+  login(loginForm:NgForm){
+    console.log(loginForm.value.password);
     
+    this.usersService.login(loginForm.value.username, loginForm.value.password)
+    .subscribe(
+      (response)=>{
+        console.log(response);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    );
   }
 
 }
