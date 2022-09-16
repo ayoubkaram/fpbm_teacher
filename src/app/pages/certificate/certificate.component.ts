@@ -23,7 +23,7 @@ export class CertificateComponent implements OnInit {
     this.sertificatesService.getsurveillantPvs()
     .subscribe(reslt=>{
       this.dataSource =reslt;
-      console.log("test"+this.dataSource);
+      console.log("test"+this.dataSource[0].id);
     })
   }
 

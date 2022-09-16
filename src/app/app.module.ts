@@ -43,9 +43,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from'@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CertificateComponent } from './pages/certificate/certificate.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AuthGuard } from './_authGuard/auth.guard';
+import { AuthInterceptor } from './_authGuard/auth.interceptor';
+import { UsersService } from './_auth/users.service';
 
 @NgModule({
   declarations: [
@@ -97,8 +101,16 @@ import { FormsModule } from '@angular/forms';
     MatSortModule,
     HttpClientModule,
     FormsModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS,
+     useClass:AuthInterceptor,
+     multi:true
+    },
+    UsersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

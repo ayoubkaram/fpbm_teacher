@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common'
+import { UserAuthService } from 'src/app/_auth/user-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +10,9 @@ import { DOCUMENT } from '@angular/common'
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(@Inject(DOCUMENT) private document: Document) { }
+  constructor(@Inject(DOCUMENT) private document: Document,
+  private userAuthService: UserAuthService,
+  private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -16,5 +20,10 @@ export class HeaderComponent implements OnInit {
   {
     //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');
+  }
+
+  public logout(){
+    this.userAuthService.clearStorage();
+    this.router.navigate(['/'])
   }
 }

@@ -34,14 +34,16 @@ import { PagesRegisterComponent } from './pages/pages-register/pages-register.co
 import { UsersProfileComponent } from './pages/users-profile/users-profile.component';
 import { StudentNoteComponent } from './pages/student-note/student-note.component';
 import { CertificateComponent } from './pages/certificate/certificate.component';
+import { AuthGuard } from './_authGuard/auth.guard';
+
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'alerts', component: AlertsComponent },
-  { path: 'accordion', component: AccordionComponent },
-  { path: 'badges', component: BadgesComponent },
-  { path: 'breadcrumbs', component: BreadcrumbsComponent },
+  { path: '', component: PagesLoginComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data:{roles:['teacher']}  },
+  { path: 'alerts', component: AlertsComponent, canActivate:[AuthGuard], data:{roles:['teacher']}  },
+  { path: 'accordion', component: AccordionComponent, canActivate:[AuthGuard], data:{roles:['teacher']}  },
+  { path: 'badges', component: BadgesComponent, canActivate:[AuthGuard], data:{roles:['teacher']}  },
+  { path: 'breadcrumbs', component: BreadcrumbsComponent, canActivate:[AuthGuard], data:{roles:['teacher']}  },
   { path: 'buttons', component: ButtonsComponent },
   { path: 'cards', component: CardsComponent },
   { path: 'carousel', component: CarouselComponent },
@@ -68,9 +70,9 @@ const routes: Routes = [
   { path: 'pages-faq', component: PagesFaqComponent },
   { path: 'pages-login', component: PagesLoginComponent },
   { path: 'pages-register', component: PagesRegisterComponent },
-  { path: 'user-profile', component: UsersProfileComponent },
-  { path: 'student-note', component: StudentNoteComponent},
-  { path: 'certificate', component: CertificateComponent},
+  { path: 'user-profile', component: UsersProfileComponent, canActivate:[AuthGuard], data:{roles:['teacher']}  },
+  { path: 'student-note', component: StudentNoteComponent, canActivate:[AuthGuard], data:{roles:['teacher']} },
+  { path: 'certificate', component: CertificateComponent, canActivate:[AuthGuard], data:{roles:['teacher']} },
 ];
 
 @NgModule({

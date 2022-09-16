@@ -33,7 +33,7 @@ export class StudentNoteComponent implements OnInit,AfterViewInit {
     this.studentNotesService.fetchAllStudent()
     .subscribe(result=>{
         this.students = result;
-        console.log("test"+this.students);
+        console.log("test ddd"+this.students[0].id);
         
     })
     

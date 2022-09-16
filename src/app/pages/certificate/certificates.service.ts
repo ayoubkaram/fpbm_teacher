@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserAuthService } from 'src/app/_auth/user-auth.service';
 import { PvModel } from './pv-model';
 
 @Injectable({
@@ -8,10 +9,16 @@ import { PvModel } from './pv-model';
 export class CertificatesService {
 
   private apiUrl="http://localhost:8080/pv/surveillant/1";
+  requestHeader = new HttpHeaders(
+    { Authorization:localStorage.getItem('jwtToken')! }
+  );
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private userAuthService: UserAuthService) { }
 
   getsurveillantPvs(){
-    return this.http.get<PvModel[]>(this.apiUrl)
+    console.log(this.userAuthService.getToken());
+    
+    return this.http.get<PvModel[]>(this.apiUrl);
   }
 }
