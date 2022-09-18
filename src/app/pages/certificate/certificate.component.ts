@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { UsersService } from 'src/app/_auth/users.service';
 import { PeriodicElement } from '../student-note/student-note.component';
 import { CertificatesService } from './certificates.service';
 
@@ -10,45 +12,75 @@ import { CertificatesService } from './certificates.service';
 })
 export class CertificateComponent implements OnInit {
 
-  displayedColumns: string[] = ['date', 'local', 'filiere', 'module'];
+ 
+  headers = ["semester", "module", "date", "localDateTime",'local'];
+  heads = ['Nom', 'Prenom','CIN', 'CNE'];
+  pvheads = ['Semestere', 'Module', 'Date', 'Horaire', 'Local'];
   dataSource: any[]=[];
+  username="prof";
+  user:any;
+  @ViewChild('invoice', {static:false}) invoiceElement!: ElementRef;
 
-  constructor(private sertificatesService: CertificatesService) { }
+  constructor(private sertificatesService: CertificatesService,
+    private usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.getsurveillantPvs();
+    this.getUserByUsername(this.username);
   }
 
-  getsurveillantPvs(){
-    this.sertificatesService.getsurveillantPvs()
+  getsurveillantPvs(id: any){
+    this.sertificatesService.getsurveillantPvs(id)
     .subscribe(reslt=>{
       this.dataSource =reslt;
-      console.log("test"+this.dataSource[0].id);
     })
+  }
+
+  getUserByUsername(username: string){
+    this.usersService.getUserByUsername(username)
+    .subscribe(reslt=>{
+      this.user = reslt
+      console.log("user "+this.user.id);
+      this.getsurveillantPvs(this.user.id);
+
+    })
+  }
+
+generatePDF(){
+
+    console.log("pdf gn");
+    
+
+    html2canvas(this.invoiceElement.nativeElement, { scale: 3 }).then(canvas => {
+      // Few necessary setting options
+       
+      const contentDataURL = canvas.toDataURL('image/png')
+  
+
+     
+      let PDF = new jsPDF('p', 'mm', 'a4',);
+      var width = PDF.internal.pageSize.getWidth();
+      var height = canvas.height * width / canvas.width;
+      
+      PDF.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      PDF.html(this.invoiceElement.nativeElement.innerHTML)
+     
+      var file = new Blob([PDF.output('blob')], { type: 'application/pdf' })
+      var fileURL = URL.createObjectURL(file);
+      console.log("sign :"+fileURL);
+      
+      // open PDF in new tab
+      window.open(fileURL); 
+      var a         = document.createElement('a');
+      a.href        = fileURL; 
+      a.target      = '_blank';
+      a.download    = this.user.nom+"_"+this.user.prenom+'_Convocation.pdf';
+      document.body.appendChild(a);
+      a.click();
+      });
+    
+       
   }
 
 
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];

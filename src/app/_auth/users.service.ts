@@ -10,7 +10,7 @@ import { UserAuthService } from './user-auth.service';
 export class UsersService {
   [x: string]: any;
 
-private apiUrl="http://localhost:8080/login";
+private apiUrl="http://localhost:8080/";
 requestHeader = new HttpHeaders(
   { "No-Auth":"True" }
 );
@@ -20,7 +20,11 @@ requestHeader = new HttpHeaders(
 
   public login(loginData:any){
   
-    return this.http.post(this.apiUrl, loginData, { headers: this.requestHeader });
+    return this.http.post(this.apiUrl+"login", loginData, { headers: this.requestHeader });
+  }
+
+  public getUserByUsername(username: any){
+    return this.http.get(this.apiUrl+"user/"+username);
   }
 
   public roleMatch(allowedRoles:any): boolean {

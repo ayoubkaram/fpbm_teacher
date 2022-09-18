@@ -8,7 +8,7 @@ import { PvModel } from './pv-model';
 })
 export class CertificatesService {
 
-  private apiUrl="http://localhost:8080/pv/surveillant/1";
+  private apiUrl="http://localhost:8080/";
   requestHeader = new HttpHeaders(
     { Authorization:localStorage.getItem('jwtToken')! }
   );
@@ -16,9 +16,8 @@ export class CertificatesService {
   constructor(private http: HttpClient,
     private userAuthService: UserAuthService) { }
 
-  getsurveillantPvs(){
-    console.log(this.userAuthService.getToken());
+  getsurveillantPvs(id: any){
     
-    return this.http.get<PvModel[]>(this.apiUrl);
+    return this.http.get<PvModel[]>(this.apiUrl+"pv/surveillant/"+id);
   }
 }
