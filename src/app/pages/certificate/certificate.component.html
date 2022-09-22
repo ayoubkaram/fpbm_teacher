@@ -1,5 +1,5 @@
 <main id="main" class="main">
-    <div class="pagetitle">
+   <div class="pagetitle">
 
       <div id="nav_container">
          <div>
@@ -11,90 +11,92 @@
                </ol>
             </nav>
          </div>
-         <button class="btn btn-primary" (click)="generatePDF()">Imprimer</button>
-      </div>
-       
-    </div>
+         <div id="div_btn">
+            <button class="btn btn-primary" id="btn_imp"  (click)="generatePDF()">Imprimer</button>
+         </div>
 
-    
-   
-      <div class="row" >
-         
-         
-         <div class="col-xl-11 mx-auto">
-            <div class="card" id="invoice" #invoice>
-               
-               <div class="card-body"><br>
-                  <div id="container">
-                     <div id="div1"> 
+      </div>
+
+   </div>
+
+
+
+   <div id="cer_container">
+
+
+      <div class="col-xl-11 mx-auto">
+         <div class="card" id="invoice" #invoice>
+            <div class="card-body"><br>
+               <div id="container">
+                  <div id="div1">
                      <h5>Université Sultan Moulay Slimane<br><br>
                         Faculté polydisciplinaire<br><br>
                         Béni Mellal
                      </h5>
-                     </div>
-                     <div id="div2">
-                         <img id="img" alt="FPBM"src="assets/img/fpbm.PNG"  width="160" height="80"/>
-                     </div>
-                 
-                     <div id="div3">
-                     <h5>جامعة السلطان مولاي سليمان<br><br>
-                     الكلية المتعددة التخصصات<br><br>
-                 بني ملال</h5>
-                 </div>
-                 </div>
-                     <hr class="ligne"><br>
-                      
-                     <h5 class="p1">A.U : 2021/2022<br></h5>
+                  </div>
+                  <div id="div2">
+                     <img id="img" alt="FPBM" src="assets/img/fpbm.PNG" width="160" height="80" />
+                  </div>
 
-                     <h5 class="p1">Convocation aux examens de la session principale<br></h5>
-                     <br><br><br>
-                           
-                     <table id="users" >
-                         
-                        
-                         <tr>
-                           <th *ngFor="let column of heads">
-                              {{column}}
-                           </th>
-                         </tr>
-                        
-                          
-                         <tr>
-                          <td>{{user.nom}}</td>
-                          <td>{{user.prenom}}</td>
-                          <td>{{user.cin}}</td>
-                          <td>{{user.cne}}</td>
-                         </tr>
-                         
-                         
-                        </table><br><br><br>
-                  <h5 id="d6">Liste des seince qui servieller: </h5>
-                  <table id="users" >
-                         
-                        
-                     <tr>
-                       <th *ngFor="let column of pvheads">
-                          {{column}}
-                       </th>
-                     </tr>
-                    
-                      
-                     <tr *ngFor="let row of dataSource">
-                        <td *ngFor="let column of headers">
-                         {{row[column]}}
-                        </td>
-                       </tr>
-                     
-                     
-                    </table><br>
-                   
+                  <div id="div3">
+                     <h5>جامعة السلطان مولاي سليمان<br><br>
+                        الكلية المتعددة التخصصات<br><br>
+                        بني ملال</h5>
+                  </div>
                </div>
+               <hr class="ligne"><br>
+
+               <h5 class="p1">A.U : 2021/2022<br></h5>
+
+               <h5 class="p1">Convocation aux examens de la session principale<br></h5>
+               <br><br><br>
+
+               <table id="users">
+
+
+                  <tr>
+                     <th *ngFor="let column of heads">
+                        {{column}}
+                     </th>
+                  </tr>
+
+
+                  <tr>
+                     <td>{{user.nom}}</td>
+                     <td>{{user.prenom}}</td>
+                     <td>{{user.cin}}</td>
+                     <td>{{user.cne}}</td>
+                  </tr>
+
+
+               </table><br><br><br>
+               <h5 id="d6">Liste des seince qui servieller: </h5>
+               <table id="users">
+
+
+                  <tr>
+                     <th *ngFor="let column of pvheads">
+                        {{column}}
+                     </th>
+                  </tr>
+
+
+                  <tr *ngFor="let row of dataSource">
+                     <td *ngFor="let column of headers">
+                        {{row[column]}}
+                     </td>
+                  </tr>
+
+
+               </table><br>
+
             </div>
          </div>
-          
-         
       </div>
-   
-    
-    
- </main>
+
+
+   </div>
+
+
+
+</main>

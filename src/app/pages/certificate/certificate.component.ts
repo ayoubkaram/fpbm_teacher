@@ -13,7 +13,7 @@ import { CertificatesService } from './certificates.service';
 export class CertificateComponent implements OnInit {
 
  
-  headers = ["semester", "module", "date", "localDateTime",'local'];
+  headers = ["semester", "module", "localDate", "localDateTime",'local'];
   heads = ['Nom', 'Prenom','CIN', 'CNE'];
   pvheads = ['Semestere', 'Module', 'Date', 'Horaire', 'Local'];
   dataSource: any[]=[];
