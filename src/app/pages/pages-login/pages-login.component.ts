@@ -17,10 +17,12 @@ export class PagesLoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    
   }
 
   login(loginForm:NgForm){
     
+    console.log(loginForm.value.username);
     
     this.usersService.login(loginForm.value)
     .subscribe(

@@ -7,7 +7,7 @@ import { StudentNote } from './student-note';
 })
 export class StudentNotesService {
 
-  private apiUrl="http://localhost:8080/students";
+  private apiUrl="http://localhost:8080/students/hasmodule/M33 :Base de donnees OraclE";
 
   constructor(private http : HttpClient) { }
 

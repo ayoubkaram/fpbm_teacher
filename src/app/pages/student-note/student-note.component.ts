@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { StudentNote } from './student-note';
 import { StudentNotesService } from './student-notes.service';
@@ -12,12 +13,13 @@ import { StudentNotesService } from './student-notes.service';
 })
 export class StudentNoteComponent implements OnInit,AfterViewInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['apojee', 'nom', 'prenom', 'cin', 'cne'];
+  dataSource!: MatTableDataSource<any>;
   students: StudentNote[]=[];
 
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private studentNotesService: StudentNotesService,
   ) { }
@@ -34,6 +36,10 @@ export class StudentNoteComponent implements OnInit,AfterViewInit {
     .subscribe(result=>{
         this.students = result;
         console.log("test ddd"+this.students[0].id);
+        this.dataSource = new MatTableDataSource(this.students);
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
         
     })
     

@@ -18,7 +18,7 @@ export class CertificateComponent implements OnInit {
   pvheads = ['Semestere', 'Module', 'Date', 'Horaire', 'Local'];
   dataSource: any[]=[];
   username="prof";
-  user:any;
+  user:any={};
   @ViewChild('invoice', {static:false}) invoiceElement!: ElementRef;
 
   constructor(private sertificatesService: CertificatesService,
