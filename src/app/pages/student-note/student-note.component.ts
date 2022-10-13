@@ -28,11 +28,11 @@ export class StudentNoteComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getAllStudent();
+    this.getAllStudent("M33 :Base de donnees OraclE");
   }
 
-  getAllStudent(){
-    this.studentNotesService.fetchAllStudent()
+  getAllStudent(module: any){
+    this.studentNotesService.fetchAllStudent(module)
     .subscribe(result=>{
         this.students = result;
         console.log("test ddd"+this.students[0].id);
